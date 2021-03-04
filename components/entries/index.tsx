@@ -1,7 +1,7 @@
 import Entry from './entry'
 
 function Entries({ entries }) {
-  if (entries) {
+  if (entries && entries.map) {
     return (
       <div>
         {entries.map((e) => (
