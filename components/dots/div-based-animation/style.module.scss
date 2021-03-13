@@ -1,0 +1,17 @@
+
+.dotContainer {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.dot {
+    position: absolute;
+    background-color: white;
+    transition-duration: 0.5s;
+
+    .dotColor {
+        position: absolute;
+        pointer-events:none;
+    }
+}
