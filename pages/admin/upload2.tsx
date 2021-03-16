@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Canvas from '@/components/dots/canvas-based-animation'
+import Canvas from '@/components/canvas-based-canvas';
 
 export default function IndexPage() {
 

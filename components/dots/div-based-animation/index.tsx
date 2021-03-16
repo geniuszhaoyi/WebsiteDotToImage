@@ -6,7 +6,7 @@ import DotComponent from './dot';
 
 export const defaultDotSizes = [2, 4, 8, 16, 30];
 
-function Dots({ canvasId, dotSizes=defaultDotSizes }, ref: Ref<unknown>) {
+function Dots({ canvasId, dotSizes=defaultDotSizes }, ref: Ref<any>) {
     const [dots, setDots] = useState<Dot[]>([]);
 
     useImperativeHandle(ref, () => ({

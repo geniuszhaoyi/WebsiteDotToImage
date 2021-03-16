@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Ref } from "react";
 import _uniqueId from 'lodash/uniqueId';
 
 import classes from './style.module.scss';
@@ -11,7 +11,7 @@ interface Size {
 }
 
 export default function Canvas({ file }) {
-    const dotsRef = useRef();
+    const dotsRef: Ref<any> = useRef();
 
     const [canvasId] = useState('canvasId');        /// TODO change to unique ID
     const [showcaseId] = useState('showcaseId');    /// TODO change to unique ID
