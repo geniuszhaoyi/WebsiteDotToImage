@@ -1,7 +1,6 @@
 import { useState, useEffect, forwardRef, Ref, useImperativeHandle } from 'react'
 
 import * as d3 from "d3";
-import TinyQueue from "tinyqueue";
 
 import { colorFromHistogram, computeHistogram } from '@/lib/canvas-algorithms';
 
