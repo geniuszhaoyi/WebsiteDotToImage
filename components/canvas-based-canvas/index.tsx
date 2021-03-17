@@ -15,7 +15,7 @@ export default function Canvas({ file, transformTime = 500, minDotSize = 4 }) {
     const [canvasId] = useState('canvasId');        /// TODO change to unique ID
     const [showcaseId] = useState('showcaseId');    /// TODO change to unique ID
 
-    const [size, setSize] = useState<Size>({ width: 800, height: 600 });
+    const [size, setSize] = useState<Size>({ width: 1, height: 1 });
     const getSize = () => {
         return {
             width: size.width + 42,
@@ -35,6 +35,14 @@ export default function Canvas({ file, transformTime = 500, minDotSize = 4 }) {
             }
         }
     }, []);
+
+    useEffect(() => {
+        if (engine && size.width > 1) {
+            const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
+            const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
+            loadDots(ctx, size.width, size.height);
+        }
+    }, [engine, size])
 
     const loadDots = (ctx: CanvasRenderingContext2D, width: any, height: any) => {
         engine.canvas.width = width;
@@ -58,8 +66,6 @@ export default function Canvas({ file, transformTime = 500, minDotSize = 4 }) {
     const onMouseMove = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
         const currentTargetRect = (event.target as HTMLElement).getBoundingClientRect();
         const x = event.pageX - currentTargetRect.left, y = event.pageY - currentTargetRect.top;
-
-        // console.log(engine.quads)
 
         const newQuads = [];
         engine.quads
@@ -116,7 +122,6 @@ export default function Canvas({ file, transformTime = 500, minDotSize = 4 }) {
                 canvas.width = width;
                 canvas.height = height;
                 ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, width, height);
-                loadDots(ctx, width, height);
             }
             img.src = event.target.result as string;
         }

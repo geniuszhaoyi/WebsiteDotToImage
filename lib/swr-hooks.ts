@@ -17,3 +17,8 @@ export function useEntries() {
 export function useEntry(id: string) {
   return useSWR(`/api/get-entry?id=${id}`, fetcher)
 }
+
+export function useImage(imageId: string) {
+  const { data, error } = useSWR(`/api/image-metadata/${imageId}`, fetcher)
+  return data;
+}
