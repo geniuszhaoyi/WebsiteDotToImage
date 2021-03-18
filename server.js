@@ -3,8 +3,9 @@ const { createServer } = require('http')
 const { parse } = require('url')
 const next = require('next')
 
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
+// const dev = process.env.NODE_ENV !== 'production'
+// console.log('dev', dev);
+const app = next({ dev: false, dir: '.' })
 const handle = app.getRequestHandler()
 
 app.prepare().then(() => {

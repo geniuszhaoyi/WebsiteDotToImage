@@ -1,28 +1,25 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
 
-import { useImage } from '@/lib/swr-hooks';
 import Canvas from '@/components/canvas-based-canvas';
 
 import classes from './style.module.scss';
-import { useRouter } from 'next/router';
 
 const ImageBoard = ({ imageId }) => {
-  const image = useImage(imageId);
-  const router = useRouter()
-
   const [imageFile, setImageFile] = useState<Blob>();
 
   useEffect(() => {
-    if (image && image.objectURL) {
-      fetch(image.objectURL)
-        .then(res => res.blob())
-        .then(blob => {
+    (async () => {
+      if (imageId) {
+        const image = await fetch(`/api/image-metadata/${imageId}`).then((res) => res.json());
+
+        if (image && image.objectURL) {
+          const blob = await fetch(image.objectURL).then(res => res.blob());
           setImageFile(blob);
-        });
-    } else {
-      // router.replace("/");
-    }
-  }, [image]);
+        }
+      }
+    })()
+  }, [imageId]);
 
   if (imageFile) {
     return <div className={classes.imageContainer}>
@@ -33,4 +30,4 @@ const ImageBoard = ({ imageId }) => {
   }
 }
 
-export default ImageBoard
+export default ImageBoard;
