@@ -63,10 +63,7 @@ export default function Canvas({ file, transformTime = 500, minDotSize = 4 }) {
         engine.start();
     }
 
-    const onMouseMove = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-        const currentTargetRect = (event.target as HTMLElement).getBoundingClientRect();
-        const x = event.pageX - currentTargetRect.left, y = event.pageY - currentTargetRect.top;
-
+    const onMove = (x: number, y: number) => {
         const newQuads = [];
         engine.quads
             .filter(q => q.state === AnimationStateEnum.STAYING && q.t.isInside(x, y))
@@ -94,15 +91,34 @@ export default function Canvas({ file, transformTime = 500, minDotSize = 4 }) {
         engine.quads.push(...newQuads);
     }
 
+    const onMouseMove = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
+        event.preventDefault();
+        const currentTargetRect = (event.target as HTMLElement).getBoundingClientRect();
+        const x = event.pageX - currentTargetRect.left, y = event.pageY - currentTargetRect.top;
+
+        onMove(x, y);
+    }
+
+    const onTouchMove = (event: React.TouchEvent<HTMLCanvasElement>) => {
+        event.preventDefault();
+        const currentTargetRect = (event.target as HTMLElement).getBoundingClientRect();
+        for (let i=0; i < event.changedTouches.length; i++) {
+            const x = event.changedTouches[i].pageX - currentTargetRect.left;
+            const y = event.changedTouches[i].pageY - currentTargetRect.top;
+            onMove(x, y);
+          }
+    }
+
     const loadFileIntoCanvas = (file: Blob, canvas: HTMLCanvasElement) => {
 
         const getSizeFitHeight = ({ width, height }) => {
             const availableHeight = window.screen.height - 200;
+            const availableWidth = window.screen.width - 60;
 
-            if (availableHeight >= height) {
+            if (availableHeight >= height && availableWidth >= width) {
                 return { width, height };
             } else {
-                const radio = availableHeight / height;
+                const radio = Math.min(availableHeight / height, availableWidth / width);
 
                 return {
                     width: width * radio,
@@ -136,7 +152,7 @@ export default function Canvas({ file, transformTime = 500, minDotSize = 4 }) {
     }, [file]);
 
     return <div id={showcaseId} className={classes.showcase} style={getSize()}>
-        <canvas id={`dot-container-${canvasId}`} className={classes.dotContainer} onMouseMove={onMouseMove}></canvas>
+        <canvas id={`dot-container-${canvasId}`} className={classes.dotContainer} onMouseMove={onMouseMove} onTouchMove={onTouchMove}></canvas>
         <canvas id={canvasId} className={classes.imageCanvas}></canvas>
     </div>
 }

@@ -10,15 +10,15 @@ const handler: NextApiHandler = async (req, res) => {
             return res.status(400).json({ message: '`imageId` required' })
         }
 
-        if (typeof parseInt(imageId.toString()) === 'number') {
-            const results = await query(
-                'SELECT `id`, `key`, `s3Url`, `arn`, `Etag`, `objectURL`, `size`, `type` FROM `image` WHERE id = ?',
-                imageId
-            )
+        const results = await query(
+            'select `id`, `key`, `s3Url`, `arn`, `Etag`, `objectURL`, `size`, `type` from hashcode inner join image on hashcode.image_id = image.id where hashcode=?',
+            imageId.toString()
+        )
 
+        if (results && results[0]) {
             return res.json(results[0])
         } else {
-            return res.status(400).json({ message: '`id` must be a number' })
+            return res.status(404).json({message: 'page not found'});
         }
     } catch (e) {
         res.status(500).json({ message: e.message })

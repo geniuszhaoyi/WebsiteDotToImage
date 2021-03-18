@@ -4,9 +4,11 @@ import { useImage } from '@/lib/swr-hooks';
 import Canvas from '@/components/canvas-based-canvas';
 
 import classes from './style.module.scss';
+import { useRouter } from 'next/router';
 
 const ImageBoard = ({ imageId }) => {
   const image = useImage(imageId);
+  const router = useRouter()
 
   const [imageFile, setImageFile] = useState<Blob>();
 
@@ -17,6 +19,8 @@ const ImageBoard = ({ imageId }) => {
         .then(blob => {
           setImageFile(blob);
         });
+    } else {
+      // router.replace("/");
     }
   }, [image]);
 
