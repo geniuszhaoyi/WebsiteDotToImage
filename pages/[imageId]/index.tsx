@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-import ImageBoard from '../../components/image';
+import ImageBoard from '../../components/imageBoard';
 
 const ImageWrapper = () => {
   const router = useRouter()

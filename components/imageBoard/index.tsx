@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 
-import Canvas from '@/components/canvas-based-canvas';
+import Canvas from '@/components/canvas';
 
 import classes from './style.module.scss';
 

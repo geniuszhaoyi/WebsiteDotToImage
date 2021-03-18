@@ -1,4 +1,4 @@
-import ImageBoard from '../components/image';
+import ImageBoard from '../components/imageBoard';
 import Head from 'next/head';
 
 const ImageWrapper = () => {
