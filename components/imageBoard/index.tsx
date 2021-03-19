@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router'
 
 import Canvas from '@/components/canvas';
 
@@ -11,13 +10,9 @@ const ImageBoard = ({ imageId }) => {
   useEffect(() => {
     (async () => {
       if (imageId) {
-        // const image = await fetch(`/api/image-metadata/${imageId}`).then((res) => res.json());
-
-        // if (image && image.objectURL) {
-          const blob = await fetch(`/api/image/${imageId}`).then(res => res.blob());
-          setImageFile(blob);
-        }
-      // }
+        const blob = await fetch(`/api/image/${imageId}`).then(res => res.blob());
+        setImageFile(blob);
+      }
     })()
   }, [imageId]);
 
