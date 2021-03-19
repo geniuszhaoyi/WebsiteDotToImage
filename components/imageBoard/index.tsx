@@ -11,13 +11,13 @@ const ImageBoard = ({ imageId }) => {
   useEffect(() => {
     (async () => {
       if (imageId) {
-        const image = await fetch(`/api/image-metadata/${imageId}`).then((res) => res.json());
+        // const image = await fetch(`/api/image-metadata/${imageId}`).then((res) => res.json());
 
-        if (image && image.objectURL) {
-          const blob = await fetch(image.objectURL).then(res => res.blob());
+        // if (image && image.objectURL) {
+          const blob = await fetch(`/api/image/${imageId}`).then(res => res.blob());
           setImageFile(blob);
         }
-      }
+      // }
     })()
   }, [imageId]);
 
