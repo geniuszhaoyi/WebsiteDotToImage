@@ -126,7 +126,7 @@ export class Quad {
         };
     }
 
-    isInside(x: number, y: number, expandMouse=5): boolean {
+    isInside(x: number, y: number, expandMouse=15): boolean {
         return this.x - expandMouse <= x && x <= this.x + this.w + expandMouse && this.y - expandMouse <= y && y <= this.y + this.h + expandMouse;
     }
 }

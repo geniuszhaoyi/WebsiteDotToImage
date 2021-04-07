@@ -1,0 +1,22 @@
+.sideButton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    div {
+        padding: 10px;
+        display: inline-bolck;
+        text-align: right;
+        cursor: pointer;
+    }
+
+    .fullImage {
+        margin: 10px;
+        padding: 7px 21px;
+        color: yellow;
+        background: black;
+        border: 3px solid black;
+        border-radius: 10px;
+        transition: all 3s;
+    }
+}

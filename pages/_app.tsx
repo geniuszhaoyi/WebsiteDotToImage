@@ -29,7 +29,6 @@ function MyApp({ Component, pageProps }) {
         <meta name="HandheldFriendly" content="true" />
       </Head>
       <Component {...pageProps} />
-      <Footer />
     </>
   )
 }

@@ -10,17 +10,25 @@ interface Size {
     height: number;
 }
 
-export default function Canvas({ file, transformTime = 500, minDotSize = 4 }) {
+export default function Canvas({ file, transformTime = 350, minDotSize = 4, showAll=false }) {
     const [canvasId] = useState('canvasId');        /// TODO change to unique ID
     const [showcaseId] = useState('showcaseId');    /// TODO change to unique ID
 
     const [size, setSize] = useState<Size>({ width: 1, height: 1 });
     const getSize = () => {
         return {
-            width: size.width + 42,
-            height: size.height + 42,
+            width: size.width,
+            height: size.height,
         }
     }
+
+    useEffect(() => {
+        if (showAll === true) {
+            const x = document.getElementById(`dot-container-${canvasId}`);
+            x.style.transition = 'all 2s';
+            x.style.opacity = '0';
+        }
+    }, [showAll]);
 
     const [engine, setEngine] = useState<QuadLoopingEngine>();
     useEffect(() => {
@@ -150,7 +158,7 @@ export default function Canvas({ file, transformTime = 500, minDotSize = 4 }) {
         }
     }, [file]);
 
-    return <div id={showcaseId} className={classes.showcase} style={getSize()}>
+    return <div id={showcaseId} style={getSize()}>
         <canvas id={`dot-container-${canvasId}`} className={classes.dotContainer} onMouseMove={onMouseMove} onTouchMove={onTouchMove}></canvas>
         <canvas id={canvasId} className={classes.imageCanvas}></canvas>
     </div>
